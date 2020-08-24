@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends "tasktracker/base_admin.html"%}
+{% block content%}
+<table class="table table-borderless text-center">
+  <thead class="border-bottom font-weight-bold">
+    <tr>
+      <td>Project Name</td>
+      <td>Creation Date</td>
+      <td>
+        <a href="{% url 'addproject' %}" class="btn btn-outline-info">
+          <i class="fas fa-plus">Add New Project</i>
+        </a>
+      </td>
+    </tr>
+    <tbody>
+      {% for project in projects_list %}
+      <tr>
+        <td>{{project.project_title}}</td>
+        <td>{{project.creation_date}}</td>
+        <td>
+          <a href="{% url 'updateproject' project.id %}" class="btn text-secondary px-0">
+            <i class="far fa-edit fa-lg"></i>
+          </a>
+          <form action="{% url 'deleteproject' project.id %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn">
+              <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </thead>
+</table>
+{% endblock content%}

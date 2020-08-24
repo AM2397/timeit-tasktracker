@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% extends "tasktracker/base.html"%} {% load crispy_forms_tags %} {% block content %}
+<form class="" action="" method="post" autocomplete="off">
+  {%csrf_token%}
+  <div class="row">
+    <div class="col-md-4">
+      {{form.task_name|as_crispy_field}}
+    </div>
+    <div class="col-md-8">
+      {{form.projecttitle|as_crispy_field}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="starttimestamp">Expected Start Time</label>
+          <input
+            type="time"
+            class="form-control"
+            name="starttimestamp"
+            required
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card-body">
+        <div class="form-group">
+          <label for="endtimestamp">Expected End Time</label>
+          <input
+            type="time"
+            class="form-control"
+            name="endtimestamp"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-9">
+      <button type="submit" class="btn btn-secondary float-right">
+        <i class="fas fa-database"></i> Submit
+      </button>
+    </div>
+    <div class="col-md-3">
+      <a href="{% url 'listalltasks' %}" class="btn btn-primary">
+        <i class="fas fa-stream"></i> Back to List
+      </a>
+    </div>
+  </div>
+</form>
+{% endblock content%}

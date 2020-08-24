@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends "tasktracker/base.html"%}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+  <h1>
+    <p id="output"><b>0:00:00:00</b></p>
+  </h1>
+  <div id="controls" align="center">
+    <button id="startPause" onclick="startPause()">
+      <b id="start">Start</b>
+    </button>
+  </div>
+  <form class="" action="" method="post" autocomplete="off">
+    {%csrf_token%}
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="ac_starttimestamp">Actual Start Time</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ac_starttimestamp"
+              id="starttimestamp"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="ac_endtimestamp">Actual End Time</label>
+            <input
+              type="text"
+              class="form-control"
+              name="ac_endtimestamp"
+              id="endtimestamp"
+              required
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <button type="submit" class="btn btn-secondary float-right">
+          <i class="fas fa-database"></i> Submit
+        </button>
+      </div>
+      <div class="col-md-3">
+        <a href="{% url 'listalltasks' %}" class="btn btn-primary">
+          <i class="fas fa-stream"></i> Back to List
+        </a>
+      </div>
+    </div>
+  </form>
+  {% endblock content%}
+</div>

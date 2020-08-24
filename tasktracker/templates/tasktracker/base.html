@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>TaskTimer</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css"
+    />
+    <style>
+      h1 {
+        font-size: 4.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="col-md-12 offset-md-0 mt-5">
+        <div class="jumbotron">
+          <div class="row">
+            <div class="col-md-6">
+              <h1 class="display-4">Task Tracker</h1>
+            </div>
+            <div class="col-md-6">
+              <a
+                href="{% url 'logoutuser' %}"
+                class="btn btn-outline-dark float-right"
+              >
+                <i class="fas fa-sign-out-alt">Logout</i>
+              </a>
+            </div>
+          </div>
+          <hr class="my-4" />
+          {% block content%} {% endblock content%}
+        </div>
+      </div>
+    </div>
+    <script>
+      var time = 0;
+      var running = 0;
+      function startPause() {
+        if (running == 0) {
+          running = 1;
+          increment();
+          document.getElementById("start").innerHTML = "Pause";
+          var today = new Date();
+          var time =
+            today.getHours() +
+            ":" +
+            today.getMinutes() +
+            ":" +
+            today.getSeconds();
+          document.getElementById("starttimestamp").value = time;
+        } else {
+          running = 0;
+          document.getElementById("start").innerHTML = "Resume";
+          var today = new Date();
+          var time =
+            today.getHours() +
+            ":" +
+            today.getMinutes() +
+            ":" +
+            today.getSeconds();
+          document.getElementById("endtimestamp").value = time;
+        }
+      }
+      function increment() {
+        if (running == 1) {
+          setTimeout(function () {
+            time++;
+            var mins = Math.floor(time / 10 / 60);
+            var secs = Math.floor((time / 10) % 60);
+            var hours = Math.floor(time / 10 / 60 / 60);
+            var tenths = time % 10;
+            if (mins < 10) {
+              mins = "0" + mins;
+            }
+            if (secs < 10) {
+              secs = "0" + secs;
+            }
+            document.getElementById("output").innerHTML =
+              hours + ":" + mins + ":" + secs + ":" + tenths + "0";
+            increment();
+          }, 100);
+        }
+      }
+    </script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

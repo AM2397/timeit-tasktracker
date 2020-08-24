@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends "tasktracker/base.html"%}
+{% block content%}
+<table class="table table-borderless text-center">
+  <thead class="border-bottom font-weight-bold">
+    <tr>
+      <td>Task Name</td>
+      <td>Project Name</td>
+      <td>Task Date</td>
+      <td>Estimated Start Time</td>
+      <td>Estimated End Time</td>
+      <td>
+        <a href="{% url 'addtask' %}" class="btn btn-outline-info">
+          <i class="fas fa-plus">Add New Task</i>
+        </a>
+      </td>
+    </tr>
+    <tbody>
+      {% for task in task_list %}
+      <tr>
+        <td>{{task.task_name}}</td>
+        <td>{{task.projecttitle}}</td>
+        <td>{{task.task_date}}</td>
+        <td>{{task.starttimestamp}}</td>
+        <td>{{task.endtimestamp}}</td>
+        <td>
+          <a href="{% url 'updatetask' task.id %}" class="btn text-secondary px-0">
+            <i class="far fa-edit fa-lg"></i>
+          </a>
+          <a href="{% url 'timetask' task.id %}" class="btn text-success px-0 ml-2">
+            <i class="far fa-calendar-alt fa-lg"></i>
+          </a>
+          <form action="{% url 'deletetask' task.id %}" method="post" class="d-inline">
+            {% csrf_token %}
+            <button type="submit" class="btn">
+              <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </thead>
+</table>
+{% endblock content%}
