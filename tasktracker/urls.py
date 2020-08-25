@@ -19,4 +19,4 @@ urlpatterns = [
     path('addorupdateproject/<int:id>/', views.addorupdateproject, name='updateproject'),
     path('deleteproject/<int:id>/', views.deleteproject, name='deleteproject'),
     path('listallprojects/', views.listallprojects, name='listallprojects')
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]
